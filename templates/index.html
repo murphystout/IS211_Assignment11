@@ -2,6 +2,14 @@
 <html>
   <head>
     <title>To Do List Application</title>
+	<script>
+	function confirm_clear() {
+		var r = confirm("This clears your current list.  Are you sure?")
+		if (r == true) {
+			document.location.href = "/clear";
+			} 
+		}
+	</script>
   </head>
 
   <body>
@@ -27,7 +35,8 @@
   <div name="task">Task:<textarea name="task"></textarea><br></div>
   <input type="submit" value="Submit Task"></input><br>
 </form>
-<div><a href="/clear"><button type="button">Clear List</button></a></div>
+<noscript><div><a href="/clear"><button type="button">Clear List</button></a></div></noscript>
+<button type="button" onclick="confirm_clear()">Clear List</button></div>
 <div><a href="/save">Save List</a></div>
   </body>
 </html>
