@@ -2,14 +2,10 @@ from flask import Flask, render_template, request, redirect
 import pickle
 import os.path
 import time
+import re
 app = Flask(__name__)
 
-# todolist = [
-# ('Get Milk','john@example.com','High'),
-# ('Get Bread','john@example.com','High'),
-# ('Get Eggs','john@example.com','High'),
-# ('Shovel Sidewalk','mark@example.com','Med')
-# ]
+
 pickle_path = "todolist.p"
 have_pickle = os.path.isfile(pickle_path)
 
@@ -29,8 +25,15 @@ def hello_world():
 	
 @app.route('/submit', methods = ['POST'])
 def submit():
-	todolist.append((request.form['task'],request.form['email'],request.form['priority'],int(time.time())))
-	return redirect('/')
+	if not re.match(r"[^@]+@[^@]+\.[^@]+", request.form['email']):
+		print "No email match"
+		return redirect('/')
+	elif request.form['priority'] not in ("High", "Med", "Low"):
+		print "No priority match"
+		return redirect('/')
+	else:
+		todolist.append((request.form['task'],request.form['email'],request.form['priority'],int(time.time())))
+		return redirect('/')
 	
 
 @app.route('/clear')
