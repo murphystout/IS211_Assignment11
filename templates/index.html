@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To Do List Application</title>
+  </head>
+
+  <body>
+    <h2>To Do Items:</h2>
+	<table name="listtable" border="1">
+	<tr>
+	<th>Task</th><th>E-mail</th><th>Priority</th><th>ID</th>
+	</tr>
+	{% for item in todolist %}
+	<tr>
+	<td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td><a href="/delete?delete_id={{item[3]}}">Delete</a></td>
+	</tr>
+	{% endfor %}
+	</table>
+<div><h2>Add an Item to the To Do List:</h2>
+<form action="/submit" method="post">
+  <div name="email">E-Mail:<input type="text" name="email"></input></div>
+  <div name="priority">Priority:<select name="priority">
+  <option value="Low">Low</option>
+  <option value="Med">Medium</option>
+  <option vlaue="High">High</option>
+  </select></div>
+  <div name="task">Task:<textarea name="task"></textarea><br></div>
+  <input type="submit" value="Submit Task"></input><br>
+</form>
+<div><a href="/clear"><button type="button">Clear List</button></a></div>
+<div><a href="/save">Save List</a></div>
+  </body>
+</html>
